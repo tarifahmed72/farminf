@@ -23,15 +23,20 @@ interface ExchangeCodeResponse {
 }
 
 const AuthService = {
-  login: async (username: string, password: string): Promise<LoginResponse> => {
-    console.log('Login attempt with:', { username, password });
-    const response = await api.post<LoginResponse>('/login', {
-      username,
-      password,
-    });
-        localStorage.setItem('access_token', response.data.access_token);
-        localStorage.setItem('refresh_token', response.data.refresh_token);
-    return response.data;
+    login: async (username: string, password: string): Promise<LoginResponse> => {
+        console.log('Login attempt with:', { username, password });
+        try {
+            const response = await api.post<LoginResponse>('/login', {
+                username,
+                password,
+            });
+            localStorage.setItem('access_token', response.data.access_token);
+            localStorage.setItem('refresh_token', response.data.refresh_token);
+            return response.data;
+        } catch (error) {
+            console.error("Error during login:", error);
+            throw error; // Re-throw the error to be handled by the caller
+        }
   },
 
   refreshToken: async (refreshToken: string): Promise<RefreshTokenResponse> => {
