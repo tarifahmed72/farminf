@@ -24,6 +24,7 @@ interface ExchangeCodeResponse {
 
 const AuthService = {
   login: async (username: string, password: string): Promise<LoginResponse> => {
+    console.log('Login attempt with:', { username, password });
     const response = await api.post<LoginResponse>('/login', {
       username,
       password,
