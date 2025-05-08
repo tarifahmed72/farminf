@@ -71,7 +71,7 @@ const Farmers = () => {
 
   useEffect(() => {
     const fetchFarmers = async () => {
-      const token = localStorage.getItem("keycloak-token");
+      const token = localStorage.getItem("access_token");
 
       if (!token) {
         setError("No auth token found. Please login again.");
